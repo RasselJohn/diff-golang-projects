@@ -14,7 +14,9 @@ func changeImgView(request *gin.Context) {
 	}
 
 	log.Println("File loaded: ", file.Filename)
-	fileName, filePath := generateFilePath()
+	currFormat := getCurrImgFormat(file.Filename)
+	fileName, filePath := generateFilePath(currFormat)
+
 	if err = request.SaveUploadedFile(file, filePath); err != nil {
 		log.Println("Error saving of file: ", err)
 		request.String(errorResponse("Cannot save file"))
@@ -25,11 +27,7 @@ func changeImgView(request *gin.Context) {
 		request.String(errorResponse(errorMessage))
 	}
 
-	format, errorMessage := getFormat(request.PostForm("format"))
-	if errorMessage != "" {
-		request.String(errorResponse(errorMessage))
-	}
-
+	format := models.Format{Old: currFormat, New: request.PostForm("format")}
 	newFilePath, errorMessage := models.Build(fileName, filePath, size, format)
 	if errorMessage != "" {
 		request.String(errorResponse(errorMessage))

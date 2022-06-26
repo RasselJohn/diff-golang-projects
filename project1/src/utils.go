@@ -6,27 +6,20 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"strings"
 )
 
-func generateFilePath() (randomFileName string, randomFilePath string) {
+func generateFilePath(format string) (randomFileName string, randomFilePath string) {
 	randByteData := make([]byte, 16)
 	rand.Read(randByteData)
 	fileName := hex.EncodeToString(randByteData)
-	filePath := fmt.Sprintf("%v%v.jpg", consts.ImgLoadFolder, fileName)
+	filePath := fmt.Sprintf("%v%v.%v", consts.ImgLoadFolder, fileName, format)
 	return fileName, filePath
 }
 
-func getFormat(newFormat string) (string, string) {
-	format := ""
-	if newFormat != "" {
-		if newFormat == consts.JPG || newFormat == consts.PNG {
-			format = newFormat
-		} else {
-			return "", "Unknown format file or converting format"
-		}
-	}
-
-	return format, ""
+func getCurrImgFormat(fileName string) string {
+	filePathParts := strings.Split(fileName, ".")
+	return filePathParts[len(filePathParts)-1]
 }
 
 func errorResponse(reason string) (statusCode int, message string) {
