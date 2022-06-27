@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="assets/css/icon.css">
+    <link rel="stylesheet" href="assets/css/materialize.min.css">
+    <link rel="stylesheet" href="public/css/main.css">
+</head>
+
+<body>
+<nav>
+    <div class="nav-wrapper teal lighten-2">
+        <a href="" class="brand-logo center">Img Converter</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down "></ul>
+    </div>
+</nav>
+
+
+<div class="form-center">
+
+    <form method="post" action="http://localhost:8080/change-image" enctype="multipart/form-data">
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>File</span>
+                <input type="file" name="img_file" accept=".png, .jpg, .jpeg" id="img_file" multiple>
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+            </div>
+        </div>
+
+        <div class="input-field col s6">
+            <input type="number" value="" step="1" min="10" max="2000" name="height" placeholder="Height"/>
+        </div>
+
+        <div class="input-field col s6">
+            <input type="number" value="" step="1" min="10" max="2000" name="height" placeholder="Width"/>
+        </div>
+
+
+        <div class="input-field col s12">
+            <select name="format" id="format" class="browser-default">
+                <option value="" selected>Convert to ...</option>
+                <option value="jpg">JPG</option>
+                <option value="png">PNG</option>
+            </select>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit">Go
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Уведомление</h4>
+        <p id="modalMessage">Неизвестная ошибка!</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+</div>
+
+
+<script src="assets/js/materialize.min.js"></script>
+<script src="public/js/main.js"></script>
+
+</body>
+</html>

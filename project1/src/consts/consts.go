@@ -6,6 +6,6 @@ const (
 )
 
 const (
-	ImgLoadFolder   = "./static/loaded/"
-	ImgResultFolder = "./static/result/"
+	ImgLoadFolder   = "./user_files/loaded/"
+	ImgResultFolder = "./user_files/result/"
 )

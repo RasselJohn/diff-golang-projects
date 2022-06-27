@@ -1,0 +1,16 @@
+form {
+    height: 40vh;
+    width: 40vh;
+}
+
+.form-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.checkbox-margin {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
