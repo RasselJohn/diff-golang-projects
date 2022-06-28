@@ -22,11 +22,13 @@
 
 <div class="form-center">
 
-    <form method="post" action="http://localhost:8080/change-image" enctype="multipart/form-data">
+    <form method="post" action="http://localhost:8080/change-image" enctype="multipart/form-data"
+          id="form"
+    >
         <div class="file-field input-field">
             <div class="btn">
                 <span>File</span>
-                <input type="file" name="img_file" accept=".png, .jpg, .jpeg" id="img_file" multiple>
+                <input type="file" name="img_files[]" accept=".png, .jpg, .jpeg" id="img_file" multiple>
             </div>
             <div class="file-path-wrapper">
                 <input class="file-path validate" type="text" placeholder="Upload one or more files">

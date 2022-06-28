@@ -1,14 +1,14 @@
-; (function () {
+;(function () {
     // init form if it exists
     let form = document.getElementById('form');
 
     if (!form) return false;
 
     form.onsubmit = () => {
-        let csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+        // let csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value;
         let options = {
             method: 'POST',
-            headers: { 'X-CSRFToken': csrf },
+            // headers: { 'X-CSRFToken': csrf },
             body: new FormData(form)
         };
         makeAjaxRequest(form.action, options);
@@ -16,27 +16,20 @@
     };
 
 
-    function openModal(message = 'Неизвестная ошибка !') {
+    function openModal(fileName, errors) {
         // set modal message
         document.getElementById('modalMessage').innerText = message;
         M.Modal.init(document.querySelector('.modal'), {}).open();
     }
 
-    function makeAjaxRequest(url, options) {
-        fetch(url, options)
-            .then((response) => response.json())
-            .then((json) => {
-                if (json.url) {
-                    location = json.url;
-                    return;
-                }
+    async function makeAjaxRequest(url, options) {
+        let response = await fetch(url, options)
+        if (response.status == 200) {
+            let json = await response.json();
+        } else {
+            openModal(json.error);
+        }
 
-                if (json.error) {
-                    return openModal(json.error);
-                } else {
-                    return openModal();
-                }
-            })
-            .catch(openModal);
+
     }
 })();
