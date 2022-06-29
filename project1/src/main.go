@@ -12,6 +12,7 @@ func main() {
 	router.StaticFile("/", "./static/main.html")
 	router.StaticFS("/assets/", http.Dir("./static/assets"))
 	router.StaticFS("/public/", http.Dir("./static/public"))
+	router.StaticFS("/user_files/", http.Dir("./user_files/result"))
 
 	router.POST("/change-image", changeImgView)
 
