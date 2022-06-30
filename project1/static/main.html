@@ -40,7 +40,7 @@
         </div>
 
         <div class="input-field col s6">
-            <input type="number" value="" step="1" min="10" max="2000" name="height" placeholder="Width"/>
+            <input type="number" value="" step="1" min="10" max="2000" name="width" placeholder="Width"/>
         </div>
 
 
@@ -61,8 +61,13 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal ">
     <div class="modal-content teal lighten-2 center-modal-content">
-        <h4>Task completed!</h4>
-        <p id="modalMessage"></p>
+        <h4>Result</h4>
+
+        <p id="modalMessage" class="center-modal-content-error card-panel">
+            <i class="small material-icons">cancel</i>
+            <span id="modalMessageText" class="red-text "></span>
+        </p>
+
         <a href="#!" class="btn-floating btn-large waves-effect waves-light deep-purple lighten-2" id="zipFile">
             <i class="material-icons">file_download</i>
         </a>

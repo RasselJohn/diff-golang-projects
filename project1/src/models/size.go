@@ -11,7 +11,7 @@ func GetNewSize(width string, height string) (*Size, string) {
 	var size *Size
 	var errorMessage string
 
-	// client side does not want to size image
+	// client side does not want to resize image
 	if width == "" && height == "" {
 		return nil, ""
 	}
@@ -22,12 +22,12 @@ func GetNewSize(width string, height string) (*Size, string) {
 		heightVal, err2 := strconv.Atoi(width)
 
 		if err1 != nil || err2 != nil {
-			errorMessage = "Incorrect width and/or height values"
+			errorMessage = "Incorrect width and/or height values."
 		} else {
 			size = &Size{height: heightVal, width: widthVal}
 		}
 	} else {
-		errorMessage = "Must be set width and height simultaneously or none of them"
+		errorMessage = "Must be set width and height simultaneously or none of them."
 	}
 
 	return size, errorMessage

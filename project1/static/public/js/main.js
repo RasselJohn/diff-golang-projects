@@ -17,19 +17,20 @@
         if (fileName) {
             let fileUrl = `${document.location.origin}/user_files/${fileName}.zip`;
             zipFile.setAttribute('href', fileUrl);
-            zipFile.hidden = false;
+            zipFile.setAttribute('style', "visibility: visible;");
         } else {
             zipFile.setAttribute('href', '#!');
-            zipFile.hidden = true;
+            zipFile.setAttribute('style', "visibility: hidden;");
         }
 
         let modalMessage = document.getElementById('modalMessage');
+        let modalMessageText = document.getElementById('modalMessageText');
         if (errors) {
-            modalMessage.innerText = `Errors: ${errors.join("\n")}`
-            modalMessage.hidden = false
+            modalMessageText.innerText = `Errors: ${errors.join("\n")}`
+            modalMessage.setAttribute('style', "visibility: visible;");
         } else {
-            modalMessage.innerText = ""
-            modalMessage.hidden = true
+            modalMessageText.innerText = ""
+            modalMessage.setAttribute('style', "visibility: hidden;");
         }
 
         M.Modal.init(document.querySelector('.modal'), {}).open();

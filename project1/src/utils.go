@@ -37,20 +37,23 @@ func fileHandler(request *gin.Context, file *multipart.FileHeader, fileNamesChan
 		log.Println("Error saving of file: ", err)
 
 		fileNamesChannel <- ""
-		errorChannel <- fmt.Sprintf("Cannot save file %v", file.Filename)
+		errorChannel <- fmt.Sprintf("Cannot save file %v.", file.Filename)
+		return
 	}
 
 	size, errorMessage := models.GetNewSize(request.PostForm("width"), request.PostForm("height"))
 	if errorMessage != "" {
 		fileNamesChannel <- ""
 		errorChannel <- errorMessage
+		return
 	}
 
 	format := models.Format{Old: currFormat, New: request.PostForm("format")}
 	newFilePath, errorMessage := models.Build(fileName, filePath, size, format)
 	if errorMessage != "" {
 		fileNamesChannel <- ""
-		errorChannel <- fmt.Sprintf("Error handling of file '%v': %v", file.Filename, errorMessage)
+		errorChannel <- fmt.Sprintf("Error handling of file '%v': %v.", file.Filename, errorMessage)
+		return
 	}
 
 	fileNamesChannel <- newFilePath

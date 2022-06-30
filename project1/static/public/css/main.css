@@ -21,3 +21,8 @@ form {
     align-items: center;
 
 }
+
+.center-modal-content-error {
+    display: flex;
+    align-items: center;
+}
