@@ -1,5 +1,5 @@
 # for local development
-# running from base directory: docker-compose -f deploy/docker-compose.yml project1 up --build
+# running from base directory: docker-compose -f deploy/docker-compose.yml -p project1 up --build
 version: "3.8"
 
 services:

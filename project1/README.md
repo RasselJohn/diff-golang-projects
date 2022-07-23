@@ -6,16 +6,18 @@
 
 ### For running:
 
-Local:
+Local(in `src` folder):
 
 ```
-go build .
+go mod tidy 
+go build
+./img_converter
 ```
 
 or with docker:
 
 ```
-go build .
+docker-compose -f deploy/docker-compose.yml -p project1 up --build
 ```
 
 Service will be on `http://localhost:8080/`
