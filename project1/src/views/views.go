@@ -1,17 +1,19 @@
-package main
+package views
 
 import (
-	"./consts"
+	"img_convert/consts"
+	"img_convert/utils"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
 )
 
-func changeImgView(request *gin.Context) {
+func ChangeImgView(request *gin.Context) {
 	form, err := request.MultipartForm()
 	if err != nil {
 		log.Println("Error loading form: ", err)
 		request.JSON(http.StatusBadRequest, gin.H{"errors": []string{"Unknown form error."}})
+		return
 	}
 
 	files := form.File["img_files[]"]
@@ -23,7 +25,7 @@ func changeImgView(request *gin.Context) {
 	fileNamesChannel := make(chan string)
 	errorChannel := make(chan string)
 	for _, file := range files {
-		go fileHandler(request, file, fileNamesChannel, errorChannel)
+		go utils.FileHandler(request, file, fileNamesChannel, errorChannel)
 	}
 
 	var fileNames []string
@@ -45,8 +47,8 @@ func changeImgView(request *gin.Context) {
 		return
 	}
 
-	zipFileName, zipFilePath := generateFilePath(consts.ImgResultFolder, "zip")
-	if err := compressToZip(zipFilePath, fileNames); err != nil {
+	zipFileName, zipFilePath := utils.GenerateFilePath(consts.ImgResultFolder, "zip")
+	if err := utils.CompressToZip(zipFilePath, fileNames); err != nil {
 		request.JSON(http.StatusBadRequest, gin.H{"errors": "Cannot compress to zip."})
 		return
 	}

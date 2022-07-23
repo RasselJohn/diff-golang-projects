@@ -23,14 +23,14 @@
             zipFile.setAttribute('style', "visibility: hidden;");
         }
 
-        let modalMessage = document.getElementById('modalMessage');
+        let modalIcon = document.getElementById('modalIcon');
         let modalMessageText = document.getElementById('modalMessageText');
         if (errors) {
+            modalIcon.innerText = "report"
             modalMessageText.innerText = `Errors: ${errors.join("\n")}`
-            modalMessage.setAttribute('style', "visibility: visible;");
         } else {
-            modalMessageText.innerText = ""
-            modalMessage.setAttribute('style', "visibility: hidden;");
+            modalIcon.innerText = "thumb_up"
+            modalMessageText.innerText = "Operation success!"
         }
 
         M.Modal.init(document.querySelector('.modal'), {}).open();

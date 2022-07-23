@@ -1,8 +1,8 @@
-package main
+package utils
 
 import (
-	"./consts"
-	"./models"
+	"img_convert/consts"
+	"img_convert/models"
 	"archive/zip"
 	"encoding/hex"
 	"fmt"
@@ -15,24 +15,17 @@ import (
 	"strings"
 )
 
-func generateFilePath(baseDir, format string) (randomFileName string, randomFilePath string) {
-	randByteData := make([]byte, 16)
-	rand.Read(randByteData)
-	fileName := hex.EncodeToString(randByteData)
-	filePath := fmt.Sprintf("%v%v.%v", baseDir, fileName, format)
-	return fileName, filePath
-}
-
-func getCurrImgFormat(fileName string) string {
-	filePathParts := strings.Split(fileName, ".")
-	return filePathParts[len(filePathParts)-1]
-}
-
-func fileHandler(request *gin.Context, file *multipart.FileHeader, fileNamesChannel, errorChannel chan string) {
+func FileHandler(request *gin.Context, file *multipart.FileHeader, fileNamesChannel, errorChannel chan string) {
 	log.Println("File loaded: ", file.Filename)
-	currFormat := getCurrImgFormat(file.Filename)
-	fileName, filePath := generateFilePath(consts.ImgLoadFolder, currFormat)
 
+	currFormat := getCurrImgFormat(file.Filename)
+	if currFormat != "jpg" && currFormat != "png" {
+		fileNamesChannel <- ""
+		errorChannel <- fmt.Sprintf("File %v has unknown format.", file.Filename)
+		return
+	}
+
+	fileName, filePath := GenerateFilePath(consts.ImgLoadFolder, currFormat)
 	if err := request.SaveUploadedFile(file, filePath); err != nil {
 		log.Println("Error saving of file: ", err)
 
@@ -60,7 +53,20 @@ func fileHandler(request *gin.Context, file *multipart.FileHeader, fileNamesChan
 	errorChannel <- ""
 }
 
-func compressToZip(zipFilePath string, fileNames []string) error {
+func getCurrImgFormat(fileName string) string {
+	filePathParts := strings.Split(fileName, ".")
+	return filePathParts[len(filePathParts)-1]
+}
+
+func GenerateFilePath(baseDir, format string) (randomFileName string, randomFilePath string) {
+	randByteData := make([]byte, 16)
+	rand.Read(randByteData)
+	fileName := hex.EncodeToString(randByteData)
+	filePath := fmt.Sprintf("%v%v.%v", baseDir, fileName, format)
+	return fileName, filePath
+}
+
+func CompressToZip(zipFilePath string, fileNames []string) error {
 	zipFile, err := os.Create(zipFilePath)
 	if err != nil {
 		return err

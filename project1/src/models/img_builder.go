@@ -1,7 +1,7 @@
 package models
 
 import (
-	"../consts"
+	"img_convert/consts"
 	"fmt"
 	"github.com/disintegration/imaging"
 	"image"

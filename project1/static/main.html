@@ -45,7 +45,7 @@
 
 
         <div class="input-field col s12">
-            <select name="format" id="format" class="browser-default">
+            <select name="format" id="format" class="browser-default" required>
                 <option value="" selected>Convert to ...</option>
                 <option value="jpg">JPG</option>
                 <option value="png">PNG</option>
@@ -61,10 +61,10 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal ">
     <div class="modal-content teal lighten-2 center-modal-content">
-        <h4>Result</h4>
+        <h4>Task completed.</h4>
 
         <p id="modalMessage" class="center-modal-content-error card-panel">
-            <i class="small material-icons">cancel</i>
+            <i class="small material-icons" id="modalIcon">cancel</i>
             <span id="modalMessageText" class="red-text "></span>
         </p>
 
